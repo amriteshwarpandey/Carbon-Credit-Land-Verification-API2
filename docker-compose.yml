@@ -1,0 +1,43 @@
+x-app: &app
+  build: .
+  env_file: .env.example
+  environment:
+    DATABASE_URL: postgresql+psycopg2://carbon:carbon@db:5432/carbon
+    REDIS_URL: redis://redis:6379/0
+    AUTO_CREATE_SCHEMA: "false"          # schema is managed by Alembic (run by the api container)
+    # File storage: shared volume by default. For S3/MinIO/R2 set STORAGE_BACKEND=s3, S3_BUCKET,
+    # S3_ENDPOINT_URL (non-AWS), S3_REGION and AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY, then the
+    # volume below is no longer needed.
+    STORAGE_BACKEND: local
+    CERTIFICATES_DIR: /data/certificates
+  volumes:
+    - certs:/data/certificates
+  depends_on:
+    db: { condition: service_healthy }
+    redis: { condition: service_started }
+
+services:
+  api:
+    <<: *app
+    ports: ["8000:8000"]
+  worker:
+    <<: *app
+    command: celery -A app.celery_app worker --loglevel=info
+    depends_on:
+      api: { condition: service_started }   # api applies migrations on boot
+      db: { condition: service_healthy }
+      redis: { condition: service_started }
+  db:
+    image: postgres:16-alpine
+    environment: { POSTGRES_USER: carbon, POSTGRES_PASSWORD: carbon, POSTGRES_DB: carbon }
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U carbon"]
+      interval: 3s
+      retries: 10
+  redis:
+    image: redis:7-alpine
+
+volumes:
+  pgdata:
+  certs:
