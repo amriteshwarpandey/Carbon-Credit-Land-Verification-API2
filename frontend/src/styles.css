@@ -1,0 +1,83 @@
+:root {
+  --bg: #f6f8f6;
+  --surface: #fff;
+  --text: #14211a;
+  --muted: #5d6b63;
+  --border: #d8e0da;
+  --accent: #166534;
+  --accent-hover: #14532d;
+  --danger: #b91c1c;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #101612;
+    --surface: #18211b;
+    --text: #e6efe9;
+    --muted: #9baba0;
+    --border: #2b382f;
+    --accent: #22c55e;
+    --accent-hover: #4ade80;
+    --danger: #f87171;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; font: 15px/1.5 system-ui, sans-serif; background: var(--bg); color: var(--text); }
+a { color: var(--accent); }
+h2 { margin: 1.2rem 0 .6rem; }
+h3 { margin: 1.6rem 0 .6rem; }
+main { max-width: 1050px; margin: 0 auto; padding: 0 16px 48px; }
+.muted { color: var(--muted); }
+.center { text-align: center; margin-top: 4rem; }
+.error { color: var(--danger); margin: .4rem 0; }
+.ok { color: var(--accent); }
+
+.topbar { display: flex; align-items: center; gap: 16px; padding: 10px 16px; background: var(--surface); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.topbar nav { display: flex; gap: 4px; }
+.topbar nav a { padding: 6px 10px; border-radius: 6px; text-decoration: none; color: var(--text); }
+.topbar nav a.active { background: var(--accent); color: #fff; }
+.spacer { flex: 1; }
+.who { color: var(--muted); font-size: 14px; }
+
+button { font: inherit; padding: 7px 14px; border: 1px solid var(--accent); background: var(--accent); color: #fff; border-radius: 6px; cursor: pointer; }
+button:hover:not(:disabled) { background: var(--accent-hover); }
+button:disabled { opacity: .55; cursor: default; }
+button.ghost { background: transparent; color: var(--text); border-color: var(--border); }
+button.ghost:hover:not(:disabled) { background: var(--border); }
+button.danger { background: var(--danger); border-color: var(--danger); }
+button.link { background: none; border: none; color: var(--accent); padding: 0; text-decoration: underline; }
+.tabs { display: flex; gap: 6px; margin-bottom: 12px; }
+.tabs button { text-transform: capitalize; }
+
+input, select, textarea { font: inherit; padding: 7px 9px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); color: var(--text); width: 100%; }
+label { display: flex; flex-direction: column; gap: 3px; font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 12px 0; }
+.card h3 { margin-top: 0; }
+.row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+.row > label { flex: 1 1 160px; }
+
+table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+td.wrap { max-width: 220px; overflow-wrap: anywhere; }
+@media (max-width: 700px) { table { display: block; overflow-x: auto; } }
+
+.badge { padding: 2px 8px; border-radius: 999px; font-size: 12px; background: var(--border); }
+.badge.approved { background: #bbf7d0; color: #14532d; }
+.badge.rejected { background: #fecaca; color: #7f1d1d; }
+.badge.pending { background: #fef08a; color: #713f12; }
+
+.stats { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.stats div { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; min-width: 150px; }
+.stats b { display: block; font-size: 22px; }
+.stats span { font-size: 12px; color: var(--muted); }
+
+.review { display: flex; gap: 6px; flex-wrap: wrap; min-width: 280px; }
+.review input { flex: 1 1 100%; }
+.map { width: 100%; border-radius: 10px; border: 1px solid var(--border); z-index: 0; }
+
+.login { min-height: 100vh; display: grid; place-items: center; padding: 16px; }
+.login .card { width: 100%; max-width: 360px; }
+.login h1 { margin: 0; }
+.login button { width: 100%; margin-top: 8px; }
