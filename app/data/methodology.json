@@ -1,0 +1,12 @@
+{
+  "name": "ILLUSTRATIVE-PLACEHOLDER",
+  "version": "0.1",
+  "notice": "Placeholder factors, NOT a registry-approved methodology. Replace with factors from your registry (e.g. Verra VM0042) and set METHODOLOGY_FILE.",
+  "per_acre_year": {
+    "no_till": 0.40,
+    "cover_crop": 0.30
+  },
+  "biochar_per_tonne": 2.5,
+  "tree_per_year": 0.022,
+  "buffer_pool_ratio": 0.0
+}
