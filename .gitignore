@@ -1,0 +1,6 @@
+__pycache__/
+.venv/
+.env
+certificates/
+*.db
+.pytest_cache/
